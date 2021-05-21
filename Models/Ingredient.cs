@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebApp2021.Models
 {
-    class Ingridient
+    class Ingredient
     {
     }
 }
