@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OQ0Lvay14G6Wy7wU76GlMhZVCiXDR7+ENHbED3AIs0EjlyLyazZJulBfYIQWNdlEdyI+opUxkyHkXxHN7f08Hg==",
+  "dgSpecHash": "X9Obn/s6LFhLZGeeCn0NZxhocJ8UixP96LLwCnMUEPlKbOQXwEWsRJFwl4XBqQF83kN84kQY+DYPrUzPRocUjg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Pola\\Desktop\\WebApp2021\\WebApp2021.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "c:\\Users\\danda\\WebApp2021\\WebApp2021.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danda\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
