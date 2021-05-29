@@ -4,7 +4,11 @@ using System.Text;
 
 namespace WebApp2021.Models
 {
-    class UserState
+    public enum UserState
     {
+        NotLoggedIn,
+        RegularUser,
+        RegularUserForbidden,
+        Manager
     }
 }
