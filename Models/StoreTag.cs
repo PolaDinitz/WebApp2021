@@ -1,4 +1,4 @@
-﻿namespace InternetApp2021.Models
+﻿namespace WebApp2021.Models
 {
     public class StoreTag
     {

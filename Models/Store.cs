@@ -1,10 +1,10 @@
-﻿using InternetApp2021.Utilities;
+﻿using WebApp2021.Utilities;
 using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace InternetApp2020.Models
+namespace WebApp2021.Models
 {
     public class Store
     {
