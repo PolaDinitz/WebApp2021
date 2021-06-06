@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebApp2021.Models
+﻿namespace InternetApp2021.Models
 {
-    class StoreTag
+    public class StoreTag
     {
+        public int StoreId { get; set; }
+        public virtual Store Store { get; set; }
+
+        public int TagId { get; set; }
+        public virtual Tag Tag { get; set; }
     }
 }
