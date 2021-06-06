@@ -1,5 +1,5 @@
 ﻿namespace WebApp2021.Models
-{
+{ 
     public class StoreTag
     {
         public int StoreId { get; set; }
