@@ -1,11 +1,10 @@
-﻿namespace WebApp2021.Models
-{ 
-    public class StoreTag
-    {
-        public int StoreId { get; set; }
-        public virtual Store Store { get; set; }
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-        public int TagId { get; set; }
-        public virtual Tag Tag { get; set; }
+namespace WebApp2021.Models
+{
+    class StoreTag
+    {
     }
 }
