@@ -9,7 +9,7 @@ using WebApp2021.Utils;
 
 namespace WebApp2021.Models
 {
-    class Recipe
+    public class Recipe
     {
         public Recipe()
         {

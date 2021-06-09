@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApp2021.Models
 {
-    class User
+    public class User
     {
         public User(){
             Events = new List<RecipeUserEvent>();
