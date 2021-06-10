@@ -1,6 +1,6 @@
 ﻿namespace WebApp2021.Models
 {
-    class RecipeUserEvent
+    public class RecipeUserEvent
     {
         public int RecipeId { get; set; }
         public virtual Recipe Recipe { get; set; }
