@@ -1,7 +1,7 @@
 ﻿using System;
 using EnumsNET;
 
-namespace WebApp2021.Utilities
+namespace WebApp2021.Utils
 {
     public static class EnumExtensions
     {
