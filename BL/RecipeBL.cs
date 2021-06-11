@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebApp2021.Utils;
 
-namespace InternetApp2020.BL
+namespace WebApp2021.BL
 {
     public class RecipeBL
     {
