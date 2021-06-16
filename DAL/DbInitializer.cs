@@ -4,7 +4,7 @@ using System.Linq;
 using WebApp2021.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace InternetApp2020.DAL
+namespace WebApp2021.DAL
 {
     public static class DbInitializer
     {

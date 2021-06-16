@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApp2021.Models;
 using WebApp2021.DAL;
+using WebApp2021.Utils;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using WebApp2021.Utils;
 
-namespace InternetApp2020.BL
+namespace WebApp2021.BL
 {
     public class RecipeBL
     {
