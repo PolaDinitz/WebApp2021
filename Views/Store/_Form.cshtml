@@ -1,0 +1,103 @@
+﻿@model WebApp2021.Models.Store
+
+
+<style>
+    .form-horizontal .control-label {
+        font-size: large;
+        text-align: left;
+    }
+
+    .wrapper-dropdown {
+        /* Size and position */
+        position: relative; /* Enable absolute positioning for children and pseudo elements */
+        width: 200px;
+        padding: 10px;
+        margin: 0 auto;
+        /* Styles */
+        background: #1d1b1b;
+        color: white;
+        outline: none;
+        cursor: pointer;
+        /* Font settings */
+        font-weight: bold;
+    }
+
+    .tag-list {
+        background: #1d1b1b;
+        color: white;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin-top:20px">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <div class="col-md-2">
+                <label asp-for="Name" class="control-label"></label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                <label asp-for="City" class="control-label"></label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                <label asp-for="Street" class="control-label"></label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                <label asp-for="Tags" class="control-label"></label>
+            </div>
+            <div class="col-md-10">
+                <div class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle wrapper-dropdown">Select tags<b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="background-color:#1d1b1b;overflow-y:scroll;height:10em;">
+                        @{
+                            var checkedTags = ViewData["checkedTags"] as HashSet<int>;
+                            foreach (var tag in ViewData["Tags"] as List<Tag>)
+                            {
+                                string isChecked = checkedTags.Contains(tag.Id) ? "checked" : "";
+                                <li class="tag-list">
+                                    <span class="checkbox">
+                                        <label>
+                                            <input type="checkbox" @isChecked name="tags" value="@tag.Id">
+                                            @tag.Type
+                                        </label>
+                                    </span>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="form-group">
+                <input type="submit" value="@ViewData["SubmitLabel"]" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
