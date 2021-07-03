@@ -1,0 +1,171 @@
+﻿@using WebApp2021.Models;
+@using WebApp2021.Utilities;
+@using WebApp2021.Controllers;
+@using Newtonsoft.Json;
+
+@model IEnumerable<Ingredient>
+
+@{
+    ViewBag.Title = "Ingredients";
+}
+
+<style>
+    select {
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+
+    .data-row:hover {
+        transition: background-color 0.5s;
+        background-color: lightgray;
+        cursor: pointer;
+    }
+
+    .thead-dark {
+        color: #fff;
+        background-color: #343a40;
+        border-color: #454d55;
+    }
+
+    .actionButton {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $("select").change(function (e) {
+            fillIngridientsTableByType($(this).val());
+        });
+        applyClickingOnIngredient();
+        function applyClickingOnIngredient() {
+            $(".data-row").click(function () {
+                window.location = $(this).attr("href");
+            });
+        }
+        function fillIngridientsTableByType(kosherType) {
+            let filteredIngridients = @Html.Raw(JsonConvert.SerializeObject(Model));
+            let allIngridientsValue = "-1";
+            if (kosherType != allIngridientsValue) {
+                filteredIngridients = filteredIngridients.filter(x => x.KosherType == parseInt(kosherType));
+            }
+            $(".table").find(".data-row").remove();
+            createIngredientRows(filteredIngridients);
+        }
+        function createIngredientRows(ingredientsArrJson) {
+            var table = $(".table");
+            ingredientsArrJson.forEach(function(item) {
+                var dataRow = $("<tr></tr>");
+                dataRow.attr("href", "/Ingredient/Details/" + item.Id);
+                dataRow.addClass("data-row");
+                dataRow.append(
+                    $("<td></td>").text(item.Name),
+                    $("<td></td>").text(item.Carbs),
+                    $("<td></td>").text(item.Protein),
+                    $("<td></td>").text(item.Fat),
+                    $("<td></td>").text(item.CaloriesPer100Gram),
+                );
+                var isUserManager = "@UserController.IsManager(Context.Session)";
+                if (isUserManager === "True") {
+                    editLinkTableData = $("<td></td>").append('<a class="btn btn-success" href="/Ingredient/Edit?id=' + item.Id + '">Edit</a>');
+                    deleteLinkTableData = $("<td></td>").append('<a class="btn btn-danger" href="/Ingredient/Delete?id=' + item.Id + '">Delete</a>');
+                    dataRow.append(editLinkTableData);
+                    dataRow.append(deleteLinkTableData);
+                }
+                table.append(dataRow);
+                applyClickingOnIngredient();
+            });
+        }
+    </script>
+}
+
+<div style="width: 800px;">
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Select Kosher type:</h4>
+        </div>
+        <div class="col-md-3">
+            <select name="IngredientsByKosherType" class="form-control">
+                <option value="-1">All</option>
+                @foreach (int kosherType in Enum.GetValues(typeof(KosherType))
+                  .Cast<KosherType>().OrderByDescending(x => x))
+                {
+                    <option value='@kosherType'>
+                        @EnumExtensions.GetDescription((KosherType)(kosherType))
+                    </option>
+                }
+            </select>
+        </div>
+        @{
+            if (UserController.IsLoggedIn(Context.Session))
+            {
+                <div class="col-md-6">
+                    <div class="actionButton" style="float: right">
+                        @Html.ActionLink("Create ingredient", "Create", "Ingredient", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Carbs)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Protein)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CaloriesPer100Gram)
+                </th>
+                @{
+                    if (UserController.IsManager(Context.Session))
+                    {
+                        <th></th>
+                        <th></th>
+                    }
+                }
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr class="data-row" href="/Ingredient/Details/@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Carbs)
+                </td>
+                <td class="recipeInstructions">
+                    @Html.DisplayFor(modelItem => item.Protein)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CaloriesPer100Gram)
+                </td>
+                @{
+                    if (UserController.IsManager(Context.Session))
+                    {
+                        <td>
+                            <a class="btn btn-success" href="/Ingredient/Edit?id=@item.Id">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="/Ingredient/Delete?id=@item.Id">Delete</a>
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+</div>
