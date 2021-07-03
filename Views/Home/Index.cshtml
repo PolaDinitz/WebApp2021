@@ -1,0 +1,35 @@
+@using WebApp2021.Utils;
+
+@model List<Tuple<Recipe, float>>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    .col-md-4 {
+        margin-bottom: 30px;
+    }
+    .row {
+        text-align: center;
+    }
+</style>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <h2>@Html.DisplayFor(modelItem => item.Item1.Name)</h2>
+            <img src="@Url.Content(item.Item1.ImageURL)" class="img-responsive" alt="https://i.pinimg.com/originals/e2/48/1a/e2481a3900f660741cdedd10902022ce.png" />
+            <p>
+                <span class="glyphicon glyphicon-time"></span>
+                <b class="info">@Html.DisplayFor(modelItem => item.Item1.PrepTime) minutes</b>
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <b class="info">@item.Item2</b>
+                <b class="label label-default">@item.Item1.KosherType.GetDescription()</b>
+            </p>
+            <p><a>@Html.ActionLink("View Recipe", "Details", "Recipe", new { id = item.Item1.Id }, new { @class = "btn btn-default btn-sm" })</a></p>
+        </div>
+    }
+</div>
