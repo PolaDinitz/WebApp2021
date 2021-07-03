@@ -1,0 +1,88 @@
+﻿@model WebApp2021.Models.Ingredient
+
+@{
+    ViewBag.Title = "Delete ingredient";
+}
+
+<style>
+    p {
+        font-size: large;
+    }
+
+        p label {
+            text-align: left;
+            width: 300px;
+        }
+
+    aside {
+        width: 40%;
+        float: right;
+        font-style: italic;
+    }
+</style>
+
+
+<h3 style="margin: 1em 0;">Are you sure you want to delete this ingredient?</h3>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.Name):
+    </label>
+    @Html.DisplayFor(model => model.Name)
+</p>
+<aside>
+    @if (Model.Recipes.Count > 0)
+    {
+        <p>Recipes with @Model.Name to be deleted</p>
+        <ul>
+            @foreach (var item in Model.Recipes)
+            {
+                <li>@item.Recipe.Name</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>There are no recipes with @Model.Name</p>
+    }
+</aside>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.Carbs):
+    </label>
+    @Html.DisplayFor(model => model.Carbs)
+</p>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.Protein):
+    </label>
+    @Html.DisplayFor(model => model.Protein)
+</p>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.Fat):
+    </label>
+    @Html.DisplayFor(model => model.Fat)
+</p>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.CaloriesPer100Gram):
+    </label>
+    @Html.DisplayFor(model => model.CaloriesPer100Gram)
+</p>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.KosherType):
+    </label>
+    @Html.DisplayFor(model => model.KosherType)
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group row">
+        <div class="col-md-offset-10" style="padding: 2em 0 0 4em;">
+            <input type="submit" value="Delete" class="btn btn-lg btn-danger" />
+        </div>
+    </div>
+}
