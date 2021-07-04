@@ -1,0 +1,180 @@
+﻿@using WebApp2021.Controllers;
+@using WebApp2021.Utils;
+
+@model WebApp2021.Models.Recipe
+
+@{
+    ViewBag.Title = "Recipe Details";
+}
+
+<style>
+    @@font-face {
+        font-family: 'recipe-card';
+        font-style: italic;
+        font-weight: 400;
+        src:    local('Kalam'),
+                local('Kalam-Regular'),
+                url(https://fonts.gstatic.com/s/kalam/v10/YA9dr0Wd4kDdMthROCc.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 66%;
+        background-color: #FFFAF0;
+        color: #333;
+        margin: auto;
+        border-radius: 2em;
+        border: 0.2em solid lightgray;
+    }
+
+    .recipe-img {
+        height: 246px;
+        width: 66%;
+        margin-left: 17%;
+        margin-top: 2em;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(255,250,240,1);
+    }
+
+    .recipe-data {
+        padding: 2px 16px;
+    }
+
+    .recipe-title {
+        margin-top: 10px;
+        text-align: center;
+        font-family: 'recipe-card';
+    }
+
+    .footer {
+        margin-top: 15px;
+        margin-bottom: 11px;
+    }
+
+    .user-name {
+        float: right;
+        font-size: 20px;
+        margin-right: 4px;
+        margin-top: 8px;
+        font-family: 'recipe-card';
+    }
+
+    .multi-col {
+        column-count: 3;
+        column-gap: 3em;
+        column-rule: 0.15em solid lightsteelblue;
+        width: 80%;
+        margin: auto;
+        font-family: 'recipe-card';
+    }
+
+        .multi-col h2 {
+            column-span: all;
+            padding-bottom: 0.5em;
+            text-align: center;
+        }
+    </style>
+
+@section scripts
+{
+    <script>
+        var likedByViewedUser = '@ViewBag.isFavorite' == 'True';
+
+        function initLikeButtonState() {
+            let likeIconElement = $('#likeIcon');
+            let likeButtonElement = $('#likeButton');
+            likeIconElement.removeClass();
+            likeIconElement.addClass('glyphicon');
+            likeButtonElement.removeClass();
+            likeButtonElement.addClass('btn btn-lg');
+            if (likedByViewedUser) {
+                likeIconElement.addClass('glyphicon-thumbs-down');
+                likeButtonElement.addClass("btn-danger");
+            } else {
+                likeIconElement.addClass('glyphicon-thumbs-up');
+                likeButtonElement.addClass("btn-info");
+            }
+        }
+
+        if ("@UserController.IsLoggedIn(Context.Session)" === "True") {
+            initLikeButtonState();
+        }
+
+
+        function likeFunction(id) {
+            $.post("/Recipe/PerformFavoriteRecipeState",
+                { recipeId: id },
+                function callback(data, status) {
+                    if (data.success) {
+                        likedByViewedUser = data.isRecipeFavorited;
+                        initLikeButtonState();
+                    } else {
+                        alert("Not logged in!");
+                    }
+                });
+        }
+
+    </script>
+}
+
+<div class="card">
+    <img class="recipe-img" src="@Model.ImageURL" alt="Avatar">
+    <div class="recipe-data">
+        <div class="row">
+            <h1 class="col-md-offset-2 col-md-8 recipe-title">@Model.Name</h1>
+            @if (UserController.IsLoggedIn(Context.Session))
+            {
+                <div class="col-md-2 recipe-title">
+                    <a class="btn btn-info btn-lg" id="likeButton" onclick="likeFunction(@Model.Id)">
+                        <span id="likeIcon" class="glyphicon glyphicon-thumbs-up"></span>
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-offset-4 col-md-2">
+                <b class="label label-default">@Model.KosherType.GetDescription()</b>
+            </div>
+            <div class="col-md-6">
+                <span class="glyphicon glyphicon-time"></span>
+                <b class="info">@Model.PrepTime minutes</b>
+            </div>
+        </div>
+        <div class="multi-col">
+            <h2>Instructions</h2>
+            @Model.Instructions
+        </div>
+        <div class="multi-col">
+            <h2>Ingredients</h2>
+            <ul>
+                @foreach (var item in Model.Ingredients)
+                {
+                    <li>@item.Ingredient.Name</li>
+                }
+            </ul>
+        </div>
+        <iframe class="recipe-img" src="https://www.youtube.com/embed/@Model.VideoID"></iframe>
+        <div class="footer row">
+            <div class="col-md-3">
+                @if (UserController.IsCurrentUserOrManager(Context.Session, Model.UserId))
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-success" href="/Recipe/Edit?id=@Model.Id">Edit</a>
+                        </div>
+                        <div class="col-md-6">
+                            <partial name="_Delete" model="Model">
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-9">
+                <span class="user-name">Created by: @Model.User.FullName</span>
+            </div>
+        </div>
+    </div>
+</div>
