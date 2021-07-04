@@ -1,0 +1,110 @@
+﻿@using WebApp2021.Controllers
+@model WebApp2021.Models.User
+
+@{
+    ViewBag.Title = "Delete user";
+}
+
+<style>
+    p {
+        font-size: large;
+    }
+
+        p label {
+            text-align: left;
+            width: 300px;
+        }
+
+    aside {
+        width: 40%;
+        float: right;
+        font-style: italic;
+    }
+</style>
+
+
+@if (Model.Id != UserController.GetLoggedInUser(Context.Session).Id)
+{
+    <h3 style="margin: 1em 0;">Are you sure you want to delete "@Model.UserName"?</h3>
+}
+else
+{
+    <h3 style="margin: 1em 0;">Are you sure you want to delete your account?</h3>
+}
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.UserName)
+    </label>
+    @Html.DisplayFor(model => model.UserName)
+</p>
+<aside>
+    @if (Model.Id != UserController.GetLoggedInUser(Context.Session).Id)
+    {
+        if (Model.Recipes.Count > 0)
+        {
+            <p>Recipes created by @Model.FullName <br /> will be owned to System Administrator</p>
+            <ul>
+                @foreach (var item in Model.Recipes)
+                {
+                    <li>@item.Name</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>There are no recipes owned to @Model.FullName</p>
+        }
+    }
+    else
+    {
+        if (Model.Recipes.Count > 0)
+        {
+            <p>Your recipes will be owned to System Administrator</p>
+            <ul>
+                @foreach (var item in Model.Recipes)
+                {
+                    <li>@item.Name</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>You have no recipes :(</p>
+        }
+    }
+</aside>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.FirstName)
+    </label>
+    @Html.DisplayFor(model => model.FirstName)
+</p>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.LastName)
+    </label>
+    @Html.DisplayFor(model => model.LastName)
+</p>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.Email)
+    </label>
+    @Html.DisplayFor(model => model.Email)
+</p>
+<p>
+    <label>
+        @Html.DisplayNameFor(model => model.IsManager)
+    </label>
+    @Html.DisplayFor(model => model.IsManager)
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group row">
+        <div class="col-md-offset-10" style="padding: 2em 0 0 4em;">
+            <input type="submit" value="Delete" class="btn btn-lg btn-danger" />
+        </div>
+    </div>
+}
