@@ -1,0 +1,87 @@
+﻿@using WebApp2021.Controllers;
+@using WebApp2021.Utils;
+@model WebApp2021.Models.User
+
+@{
+    ViewBag.Title = "User details";
+}
+
+<style>
+    .dl-horizontal {
+        margin-top: 20px;
+    }
+
+    .dl-horizontal dt {
+        text-align: left;
+        width: 300px;
+        font-size: large;
+    }
+
+    .dl-horizontal dd {
+        font-size: large;
+        text-align: left
+    }
+</style>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email):
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsManager)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsManager)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a>@Html.ActionLink("Edit", "Edit", "User", new { id = Model.Id }, new { @class = "btn btn-success btn-lg" })</a>
+    @if (Model.Id != Constants.SystemUserID)
+    {
+        <a>@Html.ActionLink("Delete", "Delete", "User", new { id = Model.Id }, new { @class = "btn btn-danger btn-lg" })</a>
+    }
+    else
+    {
+        <button disabled class="btn btn-disabled btn-lg" href="">Delete</button>
+    }
+
+    @{
+        if (UserController.IsManager(Context.Session))
+        {
+            <a>@Html.ActionLink("All users", "Index", "User", null, new { @class = "btn btn-default btn-lg" })</a>
+        }
+    }
+</p>

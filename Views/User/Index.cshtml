@@ -1,0 +1,185 @@
+﻿@using WebApp2021.Models;
+@using WebApp2021.Controllers;
+@using WebApp2021.Utils;
+@using Newtonsoft.Json;
+
+@model IEnumerable<User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<style>
+    select {
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+
+    .data-row:hover {
+        transition: background-color 0.5s;
+        background-color: lightgray;
+        cursor: pointer;
+    }
+
+    .thead-dark {
+        color: #fff;
+        background-color: #343a40;
+        border-color: #454d55;
+    }
+
+    .actionButton {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $("select").change(function () {
+            fillUsersTableByPrivilige($(this).val());
+        });
+
+        applyClickingOnUser();
+
+        function applyClickingOnUser() {
+            $(".data-row").click(function () {
+                window.location = $(this).attr("href");
+            });
+        }
+
+        function fillUsersTableByPrivilige(priviligeValue) {
+            let filteredUsers = @Html.Raw(JsonConvert.SerializeObject(Model));
+            let allUsersValue = "-1";
+            if (priviligeValue != allUsersValue) {
+                filteredUsers = filteredUsers.filter(x => x.IsManager.toString() == priviligeValue);
+            }
+
+            $(".table").find(".data-row").remove();
+
+            createUserRows(filteredUsers);
+        }
+
+        function createUserRows(usersArrJson) {
+            var table = $(".table");
+
+            usersArrJson.forEach(function (item) {
+                var dataRow = $("<tr></tr>");
+                dataRow.attr("href", "/User/Details/" + item.Id);
+                dataRow.addClass("data-row");
+                dataRow.append(
+                    $("<td></td>").text(item.UserName),
+                    $("<td></td>").text(item.FirstName),
+                    $("<td></td>").text(item.LastName),
+                    $("<td></td>").text(item.Email)
+                );
+
+                isManagerCheckboxInput = $('<input class="check-box" disabled="disabled" type="checkbox">');
+                if (item.IsManager) {
+                    isManagerCheckboxInput.prop("checked", "checked")
+                }
+                dataRow.append($("<td></td>").append(isManagerCheckboxInput));
+
+                var isUserManager = "@UserController.IsManager(Context.Session)";
+
+                if (isUserManager === "True") {
+                    editLinkTableData = $("<td></td>").append('<a class="btn btn-success" href="/User/Edit?id=' + item.Id + '">Edit</a>');
+
+                    deleteLinkTableData = $("<td></td>");
+                    if (item.Id != @Constants.SystemUserID)
+                        deleteLinkTableData = deleteLinkTableData.append('<a class="btn btn-danger" href="/User/Delete?id=' + item.Id + '">Delete</a>');
+                    else
+                        deleteLinkTableData = deleteLinkTableData.append('<button disabled class="btn btn-disabled" href="">Delete</button>');
+
+                    dataRow.append(editLinkTableData);
+                    dataRow.append(deleteLinkTableData);
+                }
+
+                table.append(dataRow);
+                applyClickingOnUser();
+            });
+        }
+    </script>
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Select Privilege:</h4>
+        </div>
+        <div class="col-md-3">
+            <select name="UsersByPrivilege" class="form-control">
+                <option value="-1">All</option>
+                <option value="false">Regular</option>
+                <option value="true">Manager</option>
+            </select>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsManager)
+                </th>
+                @{
+                    if (UserController.IsManager(Context.Session))
+                    {
+                        <th></th>
+                        <th></th>
+                    }
+                }
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr class="data-row" href="/User/Details/@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsManager)
+                </td>
+                @{
+                    if (UserController.IsManager(Context.Session))
+                    {
+                        <td>
+                            <a class="btn btn-success" href="/User/Edit?id=@item.Id">Edit</a>
+                        </td>
+                        <td>
+                            @if (item.Id != Constants.SystemUserID)
+                            {
+                                <a class="btn btn-danger" href="/User/Delete?id=@item.Id">Delete</a>
+                            }
+                            else
+                            {
+                                <button disabled class="btn btn-disabled" href="">Delete</button>
+                            }
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </table>
+</div>
