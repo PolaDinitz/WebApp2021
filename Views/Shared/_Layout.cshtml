@@ -1,0 +1,164 @@
+﻿@using WebApp2021.Controllers;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Foodies</title>
+    <link rel="stylesheet" href="~/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="~/css/cover.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/js/modernizr-2.8.3.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Foodies", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", null, null)</li>
+                    <li>@Html.ActionLink("Stores", "Index", "Store")</li>
+                    <li>@Html.ActionLink("Recipes", "Index", "Recipe")</li>
+                    <li>@Html.ActionLink("Ingredients", "Index", "Ingredient")</li>
+                    @{
+                        if (UserController.IsLoggedIn(Context.Session))
+                        {
+                            <li>@Html.ActionLink("Upload recipe", "Create", "Recipe", null, null)</li>
+
+                            if (UserController.IsManager(Context.Session))
+                            {
+                                <li>@Html.ActionLink("Graphs", "Index", "Graph")</li>
+                                <li>@Html.ActionLink("Users", "Index", "User")</li>
+                            }
+                        }
+                    }
+                </ul>
+                <partial name="_LoginPartial">
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        <header class="row" style="margin-left:0; margin-right:0;">
+            <h1 class="pull-left" style="margin-top:10px; margin-bottom:5px;">@ViewBag.Title</h1>
+        </header>
+        <hr style="margin:1px 0 5px 0" />
+
+        <section>@RenderBody()</section>
+        
+        <hr />
+        <footer>
+            <div class="row">
+                <div class="col-md-2">
+                    <video style="width: 90%; height: auto;" controls="controls">
+                        <source src="~/HaimCohen.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="col-md-8">
+                    <p><span>&copy; @DateTime.Now.Year - Foodies | </span> <partial name="_weather"></p>
+                </div>
+                <div class="col-md-2">
+                    <canvas id="clock" style="width: 90%; height: auto;"></canvas>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/js/jquery-3.5.0.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <script>
+        var canvas = $('#clock').get(0);
+        var ctx = canvas.getContext("2d");
+        var radius = canvas.offsetWidth / 2;
+        ctx.translate(radius, radius);
+        radius = radius * 0.90;
+        setInterval(drawClock, 1000);
+
+        function drawClock() {
+            drawFace(ctx, radius);
+            drawNumbers(ctx, radius);
+            drawTime(ctx, radius);
+        }
+
+        function drawFace(ctx, radius) {
+            var grad;
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = '#333';
+            ctx.fill();
+            grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
+            grad.addColorStop(0, '#CCC');
+            grad.addColorStop(0.8, '#333');
+            grad.addColorStop(1, '#CCC');
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = radius * 0.1;
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(0, 0, radius * 0.1, 0, 2 * Math.PI);
+            ctx.fillStyle = '#CCC';
+            ctx.fill();
+        }
+
+        function drawNumbers(ctx, radius) {
+            var ang;
+            var num;
+            ctx.font = radius * 0.15 + "px arial";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "center";
+            for (num = 1; num < 13; num++) {
+                ang = num * Math.PI / 6;
+                ctx.rotate(ang);
+                ctx.translate(0, -radius * 0.85);
+                ctx.rotate(-ang);
+                ctx.fillText(num.toString(), 0, 0);
+                ctx.rotate(ang);
+                ctx.translate(0, radius * 0.85);
+                ctx.rotate(-ang);
+            }
+        }
+
+        function drawTime(ctx, radius) {
+            var now = new Date();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            //hour
+            hour = hour % 12;
+            hour = (hour * Math.PI / 6) +
+                (minute * Math.PI / (6 * 60)) +
+                (second * Math.PI / (360 * 60));
+            drawHand(ctx, hour, radius * 0.5, radius * 0.07);
+            //minute
+            minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+            drawHand(ctx, minute, radius * 0.8, radius * 0.07);
+            // second
+            second = (second * Math.PI / 30);
+            drawHand(ctx, second, radius * 0.9, radius * 0.02);
+        }
+
+        function drawHand(ctx, pos, length, width) {
+            ctx.beginPath();
+            ctx.lineWidth = width;
+            ctx.lineCap = "round";
+            ctx.moveTo(0, 0);
+            ctx.rotate(pos);
+            ctx.lineTo(0, -length);
+            ctx.stroke();
+            ctx.rotate(-pos);
+        }
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
