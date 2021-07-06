@@ -21,8 +21,8 @@ namespace WebApp2021.BL
 
     public class FacebookBL
     {
-        private const string accessToken = "EAAWjuUL4rbIBAKtN6zIu0oNjOyRzfxACfZAJcZAZAWUd1eUQbsw1LXOBs4FlFF8ZCwMMj8zLpRJ7B5f7A0W0ZBL6ldO7hnz1BXZAMqSDhZADpfDGYcSGh0wDWcm4jEAcrGfAfBWoDZBSZA2ebiCL2m35BboIA1vSRZAiKHlLp2UMwWKR4WC9HC8igMHHGAgYYGUd4ZD";
-        private const string pageID = "104380594636561";
+        private const string accessToken = "EAALhOtl3LrgBADAGn0wNQJkl9AFVaM2JjhnyM5TzfGaJ5e1NeZAQzY3543j6t8at6pShI7zmfSTaIVLSpJIF2edfq6HvBZBkpJIQddIMUxHuAZC4XtwKYzQHNty5yRLANW501z23A4f70mAcTeZANdCtkf2djhDft9nCZAVqFCXIUBMtgsjPXeiJ0Tt7D34kSzZCgnKO7do5MEkIfaIv3p";
+        private const string pageID = "109726364688375";
         readonly string facebookAPI = "https://graph.facebook.com/";
         readonly string pageEdgeFeed = "feed";
         readonly string postToPageURL;

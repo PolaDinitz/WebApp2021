@@ -1,5 +1,6 @@
 ﻿using WebApp2021.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Linq;
 
 namespace WebApp2021.DAL
@@ -58,8 +59,7 @@ namespace WebApp2021.DAL
                 .WithMany(t => t.Stores)
                 .HasForeignKey(st => st.TagId);
 
-
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
             {
                 entityType.SetTableName(entityType.DisplayName());
                 entityType.GetForeignKeys()
