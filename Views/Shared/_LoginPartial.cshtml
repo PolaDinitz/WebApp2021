@@ -1,0 +1,20 @@
+﻿@using WebApp2021.Controllers;
+@using WebApp2021.Models;
+
+<ul class="nav navbar-nav navbar-right">
+    @{
+        @Html.AntiForgeryToken()
+        if (UserController.IsLoggedIn(Context.Session))
+        {
+            User user = UserController.GetLoggedInUser(Context.Session);
+
+            <li>@Html.ActionLink("Hello " + (user.IsManager ? "Manager " : "") + user.FullName + "!", "Details", "User", new { id = user.Id }, new { @class = "navbar-brand" })</li>
+            <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink("Log in", "Index", "Login")</li>
+            <li>@Html.ActionLink("Register", "Create", "User")</li>
+        }
+    }
+</ul>
