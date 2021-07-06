@@ -1,5 +1,6 @@
 ﻿using WebApp2021.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Linq;
 
 namespace WebApp2021.DAL
@@ -61,7 +62,7 @@ namespace WebApp2021.DAL
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                entityType.SetTableName(entityType.DisplayName());
+                // entityType.SetTableName(entityType.DisplayName());
                 entityType.GetForeignKeys()
                     .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade)
                     .ToList()
