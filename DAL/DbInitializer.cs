@@ -46,12 +46,12 @@ namespace WebApp2021.DAL
         {
             var ingredients = new List<Ingredient>
             {
-                new Ingredient{Id=1, Name="Egg", Carbs=5,Protein=7,Fat=4,KosherType=KosherType.Parve},
+                new Ingredient{Id=1, Name="Egg", Carbs=2,Protein=7,Fat=4,KosherType=KosherType.Parve},
                 new Ingredient{Id=2, Name="Potato", Carbs=26,Protein=5,Fat=10,KosherType=KosherType.Parve},
                 new Ingredient{Id=3, Name="Tomato", Carbs=5,Protein=3,Fat=1,KosherType=KosherType.Parve},
-                new Ingredient{Id=4, Name="Chicken", Carbs=6,Protein=12,Fat=5,KosherType=KosherType.Meat},
+                new Ingredient{Id=4, Name="Chicken", Carbs=6,Protein=20,Fat=2,KosherType=KosherType.Meat},
                 new Ingredient{Id=5, Name="Onion", Carbs=10,Protein=4,Fat=6,KosherType=KosherType.Parve},
-                new Ingredient{Id=6, Name="Mayo", Carbs=20,Protein=10,Fat=30,KosherType=KosherType.Parve},
+                new Ingredient{Id=6, Name="Mayo", Carbs=20,Protein=2,Fat=30,KosherType=KosherType.Parve},
                 new Ingredient{Id=7, Name="Beef", Carbs=4,Protein=25,Fat=20,KosherType=KosherType.Meat},
                 new Ingredient{Id=8, Name="Milk", Carbs=2,Protein=3,Fat=1,KosherType=KosherType.Dairy},
                 new Ingredient{Id=9, Name="Bread", Carbs=40,Protein=1,Fat=2,KosherType=KosherType.Parve},
@@ -59,6 +59,8 @@ namespace WebApp2021.DAL
                 new Ingredient{Id=11, Name="Pork", Carbs=4,Protein=25,Fat=20,KosherType=KosherType.Not_Kosher},
                 new Ingredient{Id=12, Name="Parmesan", Carbs=4,Protein=12,Fat=20,KosherType=KosherType.Dairy},
                 new Ingredient{Id=13, Name="Croutons", Carbs=20,Protein=1,Fat=5,KosherType=KosherType.Parve},
+                new Ingredient{Id=14, Name="Lemon", Carbs=5,Protein=0,Fat=1,KosherType=KosherType.Parve},
+                new Ingredient{Id=15, Name="Flour", Carbs=20,Protein=2,Fat=1,KosherType=KosherType.Parve},
             };
 
             modelBuilder.Entity<Ingredient>().HasData(ingredients);
@@ -68,31 +70,32 @@ namespace WebApp2021.DAL
         {
             var recipes = new List<Recipe>
             {
-                new Recipe{Id=1, Name="Omlette", Instructions="Break an egg and fry it", PrepTime=5,
-                    ImageURL="https://st3.depositphotos.com/2208212/19398/i/450/depositphotos_193980236-stock-photo-tortilla-de-patatas-spanish-omelette.jpg"
-                    ,VideoID="r09Hgeb9-6s",UserId=2,
+                
+                new Recipe{Id=1, Name="Scrumbled egg", Instructions="Break an egg and fry it", PrepTime=5,
+                    ImageURL="https://static5.depositphotos.com/1010050/473/i/950/depositphotos_4732778-stock-photo-scrambled-eggs.jpg"
+                    ,VideoID="yyi55ZrpJ0E",UserId=2,
                 },
-                new Recipe{Id=2, Name="Salad", Instructions="Dice the veggies in a bowl", PrepTime=10,
-                    ImageURL="https://www.everydaymaven.com/wp-content/uploads/2019/04/Arugula-Salad-1.jpg"
+                new Recipe{Id=2, Name="Salad", Instructions="Cut the veggies into a bowl", PrepTime=10,
+                    ImageURL="https://st.depositphotos.com/1158226/1651/i/950/depositphotos_16519041-stock-photo-closeup-of-healthy-caesar-salad.jpg"
                     ,VideoID="XCmLLzoK3HI",UserId=1,
                 },
-                new Recipe{Id=3, Name="Omlette with bacon", Instructions="Break an egg and fry it with bacon", PrepTime=15,
+                new Recipe{Id=3, Name="Omlette with bacon", Instructions="Break an egg and fry it with choped bacon", PrepTime=15,
                     ImageURL="http://www.thehungrymouse.com/wp-content/uploads/2008/11/dsc07431.jpg"
                     ,VideoID="7EKpd06AQgk",UserId=2,
                 },
                 new Recipe{Id=4, Name="Chicken Salad",
-                    Instructions="Chop cooked and cooled chicken and place into a large bowl with celery and onions. Mix dressing ingredients (per recipe below) in a bowl. Toss with chicken. Serve on rolls, bread or over a bead of lettuce.",
+                    Instructions="Chop cooked chicken and place into a bowl with celery and onions. Mix dressing ingredients in a bowl. Toss with chicken. Serve on rolls, bread or over a bead of lettuce.",
                     PrepTime=35,
-                    ImageURL="https://media4.s-nbcnews.com/j/newscms/2019_20/1437505/chinatown_chicken_salad_7db57f6a1845004c274840d39ce2b31c.today-inline-large.jpg",
+                    ImageURL="https://st2.depositphotos.com/2716431/6859/i/950/depositphotos_68590239-stock-photo-caesar-salad-with-grilled-chicken.jpg",
                     VideoID="kUkEBbCOlJU", UserId=3,
                 },
-                new Recipe{Id=5, Name="Caesar Salad", Instructions="Dice the veggies in a bowl, Break some Croutons, add grated Parmesan and olive oil. And now U can eat. its very tasty", PrepTime=30,
-                    ImageURL="https://www.fifteenspatulas.com/wp-content/uploads/2011/10/Caesar-Salad-Fifteen-Spatulas-3.jpg"
-                    ,VideoID="ZwAfROUJIPE",UserId=6,
+                new Recipe{Id=5, Name="Chicken Breast", Instructions="Season the chicken and fry it", PrepTime=20,
+                    ImageURL="https://st.depositphotos.com/1010050/2532/i/950/depositphotos_25321457-stock-photo-chicken-breast-with-garlic-rub.jpg"
+                    ,VideoID="dGePtZflzHQ",UserId=3,
                 },
-                new Recipe{Id=6, Name="BBQ Steak", Instructions="Take a meat and bbq it", PrepTime=20,
-                    ImageURL="https://static01.nyt.com/images/2016/06/23/dining/23COOKING-SOY-GRILLED-STEAK1/23COOKING-SOY-GRILLED-STEAK1-articleLarge.jpg"
-                    ,VideoID="nsw0Px-Pho8",UserId=5,
+                new Recipe{Id=6, Name="Crispy Chicken", Instructions="Dip the chicken in egg then in bread crumbs with seasoning and fry it", PrepTime=30,
+                    ImageURL="https://st.depositphotos.com/1005893/2436/i/950/depositphotos_24366011-stock-photo-fried-chicken.jpg"
+                    ,VideoID="r0sFxVgNDLk",UserId=3,
                 },
             };
 
@@ -125,10 +128,10 @@ namespace WebApp2021.DAL
 
             var stores = new List<Store>
             {
-                new Store{Id=1, Name = "Hazi Hinnam", Street = "Rishon LeTsiyon 1", City = "Petah Tikva",},
+                new Store{Id=1, Name = "Shufersal", Street = "Bialik 76", City = "Ramat Gan",},
                 new Store{Id=2, Name = "Mega Sport", Street = "Weizmann 301", City = "Kefar Sava",},
                 new Store{Id=3, Name = "Tiv Taam", Street = "Ben Gurion Blvd 56", City = "Herzliya",},
-                new Store{Id=4, Name = "Mega", Street = "Ahuza Street 69", City = "Raanana",},
+                new Store{Id=4, Name = "Keshet Teamim", Street = "Victor Vantura 222", City = "Be'er Sheva",},
             };
 
             modelBuilder.Entity<Store>().HasData(stores);
