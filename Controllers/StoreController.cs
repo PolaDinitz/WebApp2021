@@ -149,6 +149,10 @@ namespace WebApp2021.Controllers
                 return Redirect(string.Format("/Error/?code={0}", (int)HttpStatusCode.Forbidden));
 
             Store oldStore = await this.storeBL.GetStoreById(store.Id);
+    
+            if (oldStore == null)
+                return Redirect(string.Format("/Error/?code={0}", (int)HttpStatusCode.NotFound));
+
             oldStore.Tags.Clear();
 
             foreach (var tagId in tags)

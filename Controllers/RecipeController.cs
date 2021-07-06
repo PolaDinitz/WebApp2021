@@ -143,7 +143,10 @@ namespace WebApp2021.Controllers
         public async Task<ActionResult> Edit([FromForm] Recipe recipe, string[] ingredients)
         {
             Recipe oldRecipe = await this.recipeBL.GetRecipeById(recipe.Id);
-
+            
+            if (oldRecipe == null)
+                return Redirect(string.Format("/Error/?code={0}", (int)HttpStatusCode.NotFound));
+ 
             UserState state = UserController.GetPermission(this.HttpContext.Session, oldRecipe.UserId);
 
             if (state == UserState.NotLoggedIn)
