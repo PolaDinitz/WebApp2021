@@ -56,7 +56,7 @@ namespace WebApp2021.DAL
                 new Ingredient{Id=8, Name="Milk", Carbs=2,Protein=3,Fat=1,KosherType=KosherType.Dairy},
                 new Ingredient{Id=9, Name="Bread", Carbs=40,Protein=1,Fat=2,KosherType=KosherType.Parve},
                 new Ingredient{Id=10, Name="Cucumber", Carbs=1,Protein=1,Fat=1,KosherType=KosherType.Parve},
-                new Ingredient{Id=11, Name="Pork", Carbs=4,Protein=25,Fat=20,KosherType=KosherType.Not_Kosher},
+                new Ingredient{Id=11, Name="Bacon", Carbs=4,Protein=25,Fat=20,KosherType=KosherType.Not_Kosher},
                 new Ingredient{Id=12, Name="Parmesan", Carbs=4,Protein=12,Fat=20,KosherType=KosherType.Dairy},
                 new Ingredient{Id=13, Name="Croutons", Carbs=20,Protein=1,Fat=5,KosherType=KosherType.Parve},
                 new Ingredient{Id=14, Name="Lemon", Carbs=5,Protein=0,Fat=1,KosherType=KosherType.Parve},
@@ -73,7 +73,7 @@ namespace WebApp2021.DAL
                 
                 new Recipe{Id=1, Name="Scrumbled egg", Instructions="Break an egg and fry it", PrepTime=5,
                     ImageURL="https://static5.depositphotos.com/1010050/473/i/950/depositphotos_4732778-stock-photo-scrambled-eggs.jpg"
-                    ,VideoID="yyi55ZrpJ0E",UserId=2,
+                    ,VideoID="yyi55ZrpJ0E",UserId=5,
                 },
                 new Recipe{Id=2, Name="Salad", Instructions="Cut the veggies into a bowl", PrepTime=10,
                     ImageURL="https://st.depositphotos.com/1158226/1651/i/950/depositphotos_16519041-stock-photo-closeup-of-healthy-caesar-salad.jpg"
@@ -87,11 +87,11 @@ namespace WebApp2021.DAL
                     Instructions="Chop cooked chicken and place into a bowl with celery and onions. Mix dressing ingredients in a bowl. Toss with chicken. Serve on rolls, bread or over a bead of lettuce.",
                     PrepTime=35,
                     ImageURL="https://st2.depositphotos.com/2716431/6859/i/950/depositphotos_68590239-stock-photo-caesar-salad-with-grilled-chicken.jpg",
-                    VideoID="kUkEBbCOlJU", UserId=3,
+                    VideoID="kUkEBbCOlJU", UserId=4,
                 },
                 new Recipe{Id=5, Name="Chicken Breast", Instructions="Season the chicken and fry it", PrepTime=20,
                     ImageURL="https://st.depositphotos.com/1010050/2532/i/950/depositphotos_25321457-stock-photo-chicken-breast-with-garlic-rub.jpg"
-                    ,VideoID="dGePtZflzHQ",UserId=3,
+                    ,VideoID="dGePtZflzHQ",UserId=4,
                 },
                 new Recipe{Id=6, Name="Crispy Chicken", Instructions="Dip the chicken in egg then in bread crumbs with seasoning and fry it", PrepTime=30,
                     ImageURL="https://st.depositphotos.com/1005893/2436/i/950/depositphotos_24366011-stock-photo-fried-chicken.jpg"
@@ -105,8 +105,8 @@ namespace WebApp2021.DAL
             modelBuilder.SeedRelation<RecipeIngredient>(2, new int[] { 3, 5, 6, 10, });
             modelBuilder.SeedRelation<RecipeIngredient>(3, new int[] { 1, 8, 11, });
             modelBuilder.SeedRelation<RecipeIngredient>(4, new int[] { 3, 4, 5, 6, 10, });
-            modelBuilder.SeedRelation<RecipeIngredient>(5, new int[] { 3, 5, 6, 10, 12, 13, });
-            modelBuilder.SeedRelation<RecipeIngredient>(6, new int[] { 5, 7, });
+            modelBuilder.SeedRelation<RecipeIngredient>(5, new int[] { 4, });
+            modelBuilder.SeedRelation<RecipeIngredient>(6, new int[] { 4, 1, 15, });
 
             foreach (var recipe in recipes)
             {
