@@ -1,0 +1,191 @@
+﻿@using WebApp2021.Models;
+@using WebApp2021.Utils;
+@using WebApp2021.Controllers;
+
+@model IEnumerable<Recipe>
+
+@{
+    ViewBag.Title = "Recipes";
+}
+
+<style>
+    select, div.col-sm-1 > input, div.col-md-3 > input {
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+
+    .data-row:hover {
+        transition: background-color 0.5s;
+        background-color: lightgray;
+    }
+
+    .thead-dark {
+        color: #fff;
+        background-color: #343a40;
+        border-color: #454d55;
+    }
+
+    .actionButton {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .dropdown {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    #search {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+</style>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(() => {
+            $('#search').click(() => {
+                var url = new URL(window.location.href.split("?")[0]);
+
+                for (const x of $(".ingredients")) {
+                    if (x.checked) url.searchParams.append('ingredients', Number(x.value));
+                }
+
+                const prepTime = $('#prepTime').val() || null;
+                if (prepTime) url.searchParams.set('prepTime', prepTime);
+
+                const kosherType = $('#kosherType').val() || null;
+                if (kosherType) url.searchParams.set('kosherType', kosherType);
+
+                window.location.href = url.href;
+            });
+
+            $.get("Ingredient/GetAllIngredientsNames", function (ingredientNames) {
+                ingredientNames.ingredients.forEach(function (ingredientName) {
+                    $("#ingredientName").append("<option value=" + ingredientName + ">" + ingredientName + "</option>");
+                })
+            });
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-2">
+        <h6>Ingredient:</h6>
+    </div>
+    <div class="col-md-3">
+        <h6>Preperation Time:</h6>
+    </div>
+    <div class="col-md-3">
+        <h6>Kosher Type:</h6>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle wrapper-dropdown">Ingredients<b class="caret"></b></a>
+            <ul class="dropdown-menu" style="background-color:#1d1b1b;overflow-y:scroll;height:10em;">
+                @{
+                    foreach (var ingredient in ViewData["Ingredients"] as List<Ingredient>)
+                    {
+                        <li class="ingredient-list">
+                            <span class="checkbox">
+                                <label>
+                                    <input class="ingredients" type="checkbox" name="ingredients" value="@ingredient.Id">
+                                    @ingredient.Name
+                                </label>
+                            </span>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <input id="prepTime" class="form-control" type="text" name="prepTime" />
+    </div>
+    <div class="col-md-3">
+        <select class="form-control" id="kosherType" name="kosherType">
+            <option value="-1">All</option>
+            @foreach (int kosherType in Enum.GetValues(typeof(KosherType))
+            .Cast<KosherType>().OrderByDescending(x => x))
+            {
+                <option value='@kosherType'>
+                    @EnumExtensions.GetDescription((KosherType)(kosherType))
+                </option>
+            }
+        </select>
+    </div>
+    <div class="col-sm-1"><button id="search" class="btn btn-success">Search</button></div>
+</div>
+<br />
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrepTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoID)
+            </th>
+            <th>
+                Kosher Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr class="data-row">
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrepTime)
+            </td>
+            <td>
+                <img src="@item.ImageURL" style="width:180px; height:128px">
+            </td>
+            <td>
+                <iframe width="180" height="130"
+                        allowfullscreen="allowfullscreen"
+                        mozallowfullscreen="mozallowfullscreen"
+                        msallowfullscreen="msallowfullscreen"
+                        oallowfullscreen="oallowfullscreen"
+                        webkitallowfullscreen="webkitallowfullscreen"
+                        frameborder="0"
+                        src="https://www.youtube.com/embed/@item.VideoID"></iframe>
+            </td>
+            <td>
+                @EnumExtensions.GetDescription((KosherType)(item.KosherType))
+            </td>
+            <td>
+                <a class="btn btn-primary" href="/Recipe/Details?id=@item.Id">Details</a>
+                @{ 
+                    if (UserController.IsLoggedIn(Context.Session) && 
+                        (UserController.GetLoggedInUser(Context.Session).Id == item.User.Id ||
+                        UserController.IsManager(Context.Session)))
+                    {
+                        <a class="btn btn-success" href="/Recipe/Edit?id=@item.Id">Edit</a>
+                        <partial name="_Delete" model="item" />
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>

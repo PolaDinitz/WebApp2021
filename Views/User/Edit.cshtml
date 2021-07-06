@@ -1,0 +1,108 @@
+﻿@using WebApp2021.Controllers;
+@using WebApp2021.Utils;
+@model WebApp2021.Models.User
+
+@{
+    ViewBag.Title = "Edit user";
+}
+
+<style>
+
+    .form-horizontal .control-label {
+        font-size: large;
+        text-align: left;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.LabelFor(model => model.UserName)<span>:</span>
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                <span class="text-danger">@ViewBag.ErrorMessage</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.LabelFor(model => model.FirstName)<span>:</span>
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.LabelFor(model => model.LastName)<span>:</span>
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.LabelFor(model => model.Email)<span>:</span>
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            if (UserController.IsManager(Context.Session))
+            {
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        @Html.LabelFor(model => model.IsManager)
+                    </div>
+                    <div class="col-md-10">
+                        <div class="checkbox-inline">
+                            @{
+                                object attr;
+                                if (Model.Id == Constants.SystemUserID)
+                                    attr = new { disabled = "disabled" };
+                                else
+                                    attr = new { };
+                            }
+                            @Html.CheckBoxFor(model => model.IsManager, attr)
+                            @Html.ValidationMessageFor(model => model.IsManager, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                @Html.LabelFor(model => model.Password)<span>:</span>
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @value = Model.Password } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/js/jquery.validate.min.js"></script>
