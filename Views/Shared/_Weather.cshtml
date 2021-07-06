@@ -1,0 +1,53 @@
+﻿<span id="weather"></span>
+<span id="sunset"></span>
+
+
+<script>
+    window.addEventListener('load',function () {
+        getPosition().then(function (position) {
+            $.get("https://api.openweathermap.org/data/2.5/weather?lat=" + position.latitude + "&lon=" + position.longitude + "&appid=293d1ab169644b09244ded59ac90e6d5" + "&units=metric",
+                function (weatherData) {
+                    document.getElementById('weather').innerHTML = "The weather is " + Math.round(weatherData.main.temp) + "c. Skies are " + weatherData.clouds.all + "% cloudy.";
+                    var currDate = new Date();
+                    // Weather data api returns a date without the last 3 zeroes so I need to multiply by 1000 to get to the curr date.
+                    if (currDate > (weatherData.sys.sunrise * 1000) && currDate < (weatherData.sys.sunset * 1000)) {
+                        var sunsetDate = new Date(weatherData.sys.sunset * 1000);
+                        document.getElementById('sunset').innerHTML = "The sun will set at " + sunsetDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    } else {
+                        var sunriseDate = new Date(weatherData.sys.sunrise * 1000);
+                        document.getElementById('sunset').innerHTML = "The sun will rise at " + sunriseDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+                });
+        });
+    });
+
+    function ipLookUp(resolve, reject) {
+        $.ajax('https://ipapi.co/json/')
+            .then(
+                function success(response) {
+                    return resolve(response);
+                },
+
+                function fail(data, status) {
+                    console.error('Request failed.  Returned status ', status);
+                    reject(status);
+                }
+            );
+    }
+
+    function getPosition() {
+        return new Promise(function (resolve, reject) {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    function success(position) {
+                        return resolve(position.coords);
+                    },
+                    function error(err) {
+                        ipLookUp(resolve, reject);
+                    });
+            } else {
+                ipLookUp(resolve, reject);
+            }
+        });
+    }
+</script>
