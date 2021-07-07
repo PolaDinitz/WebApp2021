@@ -6,6 +6,7 @@
 @model IEnumerable<Ingredient>
 
 @{
+    Layout="_Layout";
     ViewBag.Title = "Ingredients";
 }
 
@@ -37,7 +38,7 @@
 {
     <script type="text/javascript">
         $("select").change(function (e) {
-            fillIngridientsTableByType($(this).val());
+            fillingredientsTableByType($(this).val());
         });
         applyClickingOnIngredient();
         function applyClickingOnIngredient() {
@@ -45,14 +46,14 @@
                 window.location = $(this).attr("href");
             });
         }
-        function fillIngridientsTableByType(kosherType) {
-            let filteredIngridients = @Html.Raw(JsonConvert.SerializeObject(Model));
-            let allIngridientsValue = "-1";
-            if (kosherType != allIngridientsValue) {
-                filteredIngridients = filteredIngridients.filter(x => x.KosherType == parseInt(kosherType));
+        function fillingredientsTableByType(kosherType) {
+            let filteredingredients = @Html.Raw(JsonConvert.SerializeObject(Model));
+            let allingredientsValue = "-1";
+            if (kosherType != allingredientsValue) {
+                filteredingredients = filteredingredients.filter(x => x.KosherType == parseInt(kosherType));
             }
             $(".table").find(".data-row").remove();
-            createIngredientRows(filteredIngridients);
+            createIngredientRows(filteredingredients);
         }
         function createIngredientRows(ingredientsArrJson) {
             var table = $(".table");

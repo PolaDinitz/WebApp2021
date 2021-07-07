@@ -72,29 +72,29 @@ namespace WebApp2021.DAL
             {
                 
                 new Recipe{Id=1, Name="Scrumbled egg", Instructions="Break an egg and fry it", PrepTime=5,
-                    ImageURL="https://static5.depositphotos.com/1010050/473/i/950/depositphotos_4732778-stock-photo-scrambled-eggs.jpg"
+                    ImageURL="~/img/depositphotos_4732778-stock-photo-scrambled-eggs.jpg"
                     ,VideoID="yyi55ZrpJ0E",UserId=5,
                 },
                 new Recipe{Id=2, Name="Salad", Instructions="Cut the veggies into a bowl", PrepTime=10,
-                    ImageURL="https://st.depositphotos.com/1158226/1651/i/950/depositphotos_16519041-stock-photo-closeup-of-healthy-caesar-salad.jpg"
+                    ImageURL="~/img/depositphotos_16519041-stock-photo-closeup-of-healthy-caesar-salad.jpg"
                     ,VideoID="XCmLLzoK3HI",UserId=1,
                 },
                 new Recipe{Id=3, Name="Omlette with bacon", Instructions="Break an egg and fry it with choped bacon", PrepTime=15,
-                    ImageURL="http://www.thehungrymouse.com/wp-content/uploads/2008/11/dsc07431.jpg"
+                    ImageURL="~/img/dsc07431.jpg"
                     ,VideoID="7EKpd06AQgk",UserId=2,
                 },
                 new Recipe{Id=4, Name="Chicken Salad",
                     Instructions="Chop cooked chicken and place into a bowl with celery and onions. Mix dressing ingredients in a bowl. Toss with chicken. Serve on rolls, bread or over a bead of lettuce.",
                     PrepTime=35,
-                    ImageURL="https://st2.depositphotos.com/2716431/6859/i/950/depositphotos_68590239-stock-photo-caesar-salad-with-grilled-chicken.jpg",
+                    ImageURL="~/img/depositphotos_68590239-stock-photo-caesar-salad-with-grilled-chicken.jpg",
                     VideoID="kUkEBbCOlJU", UserId=4,
                 },
                 new Recipe{Id=5, Name="Chicken Breast", Instructions="Season the chicken and fry it", PrepTime=20,
-                    ImageURL="https://st.depositphotos.com/1010050/2532/i/950/depositphotos_25321457-stock-photo-chicken-breast-with-garlic-rub.jpg"
+                    ImageURL="~/img/depositphotos_25321457-stock-photo-chicken-breast-with-garlic-rub.jpg"
                     ,VideoID="dGePtZflzHQ",UserId=4,
                 },
                 new Recipe{Id=6, Name="Crispy Chicken", Instructions="Dip the chicken in egg then in bread crumbs with seasoning and fry it", PrepTime=30,
-                    ImageURL="https://st.depositphotos.com/1005893/2436/i/950/depositphotos_24366011-stock-photo-fried-chicken.jpg"
+                    ImageURL="~/img/depositphotos_24366011-stock-photo-fried-chicken.jpg"
                     ,VideoID="r0sFxVgNDLk",UserId=3,
                 },
             };
