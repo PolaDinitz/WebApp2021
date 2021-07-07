@@ -10,7 +10,7 @@ namespace WebApp2021.BL
     public class StoreBL
     {
         private readonly AppDbContext db;
-
+       
         public StoreBL(AppDbContext db) => this.db = db;
 
 
@@ -52,7 +52,7 @@ namespace WebApp2021.BL
 
             db.Stores.Remove(store);
 
-            return await db.SaveChangesAsync();
+            return await db.SaveChangesAsync();       
         }
 
         public ICollection<Tag> GetTags()

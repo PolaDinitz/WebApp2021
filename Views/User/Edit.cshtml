@@ -3,7 +3,6 @@
 @model WebApp2021.Models.User
 
 @{
-    Layout="_Layout";
     ViewBag.Title = "Edit user";
 }
 
@@ -76,13 +75,9 @@
                             @{
                                 object attr;
                                 if (Model.Id == Constants.SystemUserID)
-                                {
                                     attr = new { disabled = "disabled" };
-                                }
                                 else
-                                {
                                     attr = new { };
-                                }
                             }
                             @Html.CheckBoxFor(model => model.IsManager, attr)
                             @Html.ValidationMessageFor(model => model.IsManager, "", new { @class = "text-danger" })

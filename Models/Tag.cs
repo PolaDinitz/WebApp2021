@@ -18,5 +18,5 @@ namespace WebApp2021.Models
         public string Type { get; set; }
 
         public virtual List<StoreTag> Stores { get; set; }
-    }        
+    }
 }

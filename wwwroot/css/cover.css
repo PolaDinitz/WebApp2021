@@ -8,16 +8,16 @@
 a,
 a:focus,
 a:hover {
-    color: #fff;
+    color: #00ADB5;
 }
 
 /* Custom default button */
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
-    color: #333;
+    color: #1f1f1f;
     text-shadow: none; /* Prevent inheritance from `body` */
-    background-color: #fff;
+    background-color: #00ADB5;
     border: 1px solid #fff;
 }
 
@@ -29,11 +29,11 @@ a:hover {
 html,
 body {
     height: 100%;
-    background-color: #333;
+    background-color: #EEEEEE;
 }
 
 body {
-    color: #fff;
+    color: #1f1f1f;
     text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
 }
 
@@ -188,4 +188,10 @@ footer {
     border: 1px solid #999999;
     background-color: #cccccc;
     color: #666666;
+}
+
+.btn {
+    background-color: #393E46;
+    color: #5F9AC2;
+    border-color: #AAD8D3;
 }

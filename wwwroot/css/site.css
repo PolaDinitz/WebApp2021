@@ -30,7 +30,7 @@ textarea {
     padding: 10px;
     margin: 0 auto;
     /* Styles */
-    background: #1d1b1b;
+    background: #00ADB5;
     color: white;
     outline: none;
     cursor: pointer;
@@ -39,6 +39,12 @@ textarea {
 }
 
 .tag-list {
-    background: #1d1b1b;
+    background: #00ADB5;
     color: white;
+}
+
+.btn {
+    background-color: #393E46;
+    color: #5F9AC2;
+    border-color: #AAD8D3;
 }

@@ -1,7 +1,6 @@
 ﻿@using Newtonsoft.Json;
 
 @{
-    Layout="_Layout";
     ViewBag.Title = "Graphs";
 }
 
@@ -20,7 +19,7 @@
         function graph1() {
 
             let data = @Html.Raw(JsonConvert.SerializeObject(@ViewData["Graph1"]));
-
+            
             // set the dimensions and margins of the graph
             let margin = { top: 30, right: 30, bottom: 120, left: 60 },
                 width = 550 - margin.left - margin.right,

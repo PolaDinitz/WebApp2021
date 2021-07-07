@@ -1,8 +1,5 @@
-﻿@using WebApp2021.Models
+﻿@model WebApp2021.Models.Recipe
 
-@{
-    Layout="_Layout";
-}
 
 <style>
     .form-horizontal .control-label {
@@ -17,7 +14,7 @@
         padding: 10px;
         margin: 0 auto;
         /* Styles */
-        background: #1d1b1b;
+        background: #00ADB5;
         color: white;
         outline: none;
         cursor: pointer;
@@ -26,7 +23,7 @@
     }
 
     .ingredient-list {
-        background: #1d1b1b;
+        background: #00ADB5;
         color: white;
     }
 </style>
@@ -95,7 +92,7 @@
             <div class="col-md-10">
                 <div class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle wrapper-dropdown">Pick ingredients<b class="caret"></b></a>
-                    <ul class="dropdown-menu" style="background-color:#1d1b1b;overflow-y:scroll;height:10em;">
+                    <ul class="dropdown-menu" style="background-color:#00ADB5;overflow-y:scroll;height:10em;">
                         @{
                             var checkedIngredients = ViewData["checkedIngredients"] as HashSet<int>;
                             foreach (var ingredient in ViewData["Ingredients"] as List<Ingredient>)
@@ -119,7 +116,7 @@
 
         <div class="container">
             <div class="form-group">
-                <input type="submit" value="@ViewData["SubmitLabel"]" class="btn btn-primary" />
+                <input type="submit" value="@ViewData["SubmitLabel"]" class="btn" />
             </div>
         </div>
     </div>

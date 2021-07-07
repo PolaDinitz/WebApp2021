@@ -1,7 +1,7 @@
-﻿@model WebApp2021.Models.Ingredient
+﻿
+@model WebApp2021.Models.Ingredient
 
 @{
-    Layout="_Layout";
     ViewBag.Title = "Ingredient details";
 }
 
@@ -10,16 +10,16 @@
         margin-top: 20px;
     }
 
-        .dl-horizontal dt {
-            text-align: left;
-            width: 300px;
-            font-size: large;
-        }
+    .dl-horizontal dt {
+        text-align: left;
+        width: 300px;
+        font-size: large;
+    }
 
-        .dl-horizontal dd {
-            font-size: large;
-            text-align: left
-        }
+    .dl-horizontal dd {
+        font-size: large;
+        text-align: left
+    }
 </style>
 
 <div>
@@ -78,3 +78,4 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
