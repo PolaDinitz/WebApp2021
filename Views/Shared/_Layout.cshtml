@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Foodies</title>
+    <title>@ViewBag.Title - F21</title>
     <link rel="stylesheet" href="~/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/bootstrap-theme.css" />
     <link rel="stylesheet" href="~/css/cover.css" />
@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Foodies", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("F21", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -42,7 +42,8 @@
                         }
                     }
                 </ul>
-                <partial name="_LoginPartial">
+                @Html.Partial("_LoginPartial")
+                <partial name="~/Veiws/Shared/_LoginPartial" />
             </div>
         </div>
     </nav>
@@ -64,7 +65,7 @@
                     </video>
                 </div>
                 <div class="col-md-8">
-                    <p><span>&copy; @DateTime.Now.Year - Foodies | </span> <partial name="_weather"></p>
+                    <p><span>&copy; @DateTime.Now.Year - F21 | </span> @Html.Partial("_Weather") <partial name="~/Views/Shared/_Weather"/></p>
                 </div>
                 <div class="col-md-2">
                     <canvas id="clock" style="width: 90%; height: auto;"></canvas>
