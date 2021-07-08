@@ -42,8 +42,7 @@
                         }
                     }
                 </ul>
-                @Html.Partial("_LoginPartial")
-                <partial name="~/Veiws/Shared/_LoginPartial" />
+                <partial name="_LoginPartial" />
             </div>
         </div>
     </nav>
@@ -59,7 +58,7 @@
         <footer>
             <div class="row">
                 <div class="col-md-8">
-                    <p><span>&copy; @DateTime.Now.Year - F21 | </span> @Html.Partial("_Weather") <partial name="~/Views/Shared/_Weather"/></p>
+                    <p><span>&copy; @DateTime.Now.Year - F21 | </span> <partial name="_Weather"/></p>
                 </div>
                 <div class="col-md-2">
                     <canvas id="clock" style="width: 90%; height: auto;"></canvas>
