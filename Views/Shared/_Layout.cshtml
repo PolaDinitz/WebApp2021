@@ -13,7 +13,7 @@
     <script src="~/js/modernizr-2.8.3.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-light navbar-fixed-top" style="background-color: #AAD8D3">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -58,12 +58,6 @@
         <hr />
         <footer>
             <div class="row">
-                <div class="col-md-2">
-                    <video style="width: 90%; height: auto;" controls="controls">
-                        <source src="~/HaimCohen.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
                 <div class="col-md-8">
                     <p><span>&copy; @DateTime.Now.Year - F21 | </span> @Html.Partial("_Weather") <partial name="~/Views/Shared/_Weather"/></p>
                 </div>

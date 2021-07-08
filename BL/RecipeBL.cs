@@ -85,7 +85,8 @@ namespace WebApp2021.BL
                                   let count = r.Events.Count(e => e.IsFavorite)
                                   select new {Recipe = r, Count = count }
                                 
-                    )        
+                    )  
+             .Distinct()      
              .OrderByDescending(r => r.Count) 
              .Take(RecommendationPageSize)
              .ToList();

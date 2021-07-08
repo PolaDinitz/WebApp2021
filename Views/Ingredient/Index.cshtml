@@ -1,4 +1,4 @@
-﻿@using WebApp2021.Models;
+@using WebApp2021.Models;
 @using WebApp2021.Utils;
 @using WebApp2021.Controllers;
 @using Newtonsoft.Json;
@@ -6,7 +6,6 @@
 @model IEnumerable<Ingredient>
 
 @{
-    Layout="_Layout";
     ViewBag.Title = "Ingredients";
 }
 
@@ -24,7 +23,7 @@
 
     .thead-dark {
         color: #fff;
-        background-color: #343a40;
+        background-color: #00ADB5;
         border-color: #454d55;
     }
 
@@ -38,23 +37,27 @@
 {
     <script type="text/javascript">
         $("select").change(function (e) {
-            fillingredientsTableByType($(this).val());
+            fillIngridientsTableByType($(this).val());
         });
+
         applyClickingOnIngredient();
         function applyClickingOnIngredient() {
             $(".data-row").click(function () {
                 window.location = $(this).attr("href");
             });
         }
-        function fillingredientsTableByType(kosherType) {
-            let filteredingredients = @Html.Raw(JsonConvert.SerializeObject(Model));
-            let allingredientsValue = "-1";
-            if (kosherType != allingredientsValue) {
-                filteredingredients = filteredingredients.filter(x => x.KosherType == parseInt(kosherType));
+        function fillIngridientsTableByType(kosherType) {
+            let filteredIngridients = @Html.Raw(JsonConvert.SerializeObject(Model));
+            let allIngridientsValue = "-1";
+            if (kosherType != allIngridientsValue) {
+                filteredIngridients = filteredIngridients.filter(x => x.KosherType == parseInt(kosherType));
             }
+
             $(".table").find(".data-row").remove();
-            createIngredientRows(filteredingredients);
+
+            createIngredientRows(filteredIngridients);
         }
+
         function createIngredientRows(ingredientsArrJson) {
             var table = $(".table");
             ingredientsArrJson.forEach(function(item) {
@@ -91,7 +94,7 @@
             <select name="IngredientsByKosherType" class="form-control">
                 <option value="-1">All</option>
                 @foreach (int kosherType in Enum.GetValues(typeof(KosherType))
-                  .Cast<KosherType>().OrderByDescending(x => x))
+                   .Cast<KosherType>().OrderByDescending(x => x))
                 {
                     <option value='@kosherType'>
                         @EnumExtensions.GetDescription((KosherType)(kosherType))
@@ -104,7 +107,7 @@
             {
                 <div class="col-md-6">
                     <div class="actionButton" style="float: right">
-                        @Html.ActionLink("Create ingredient", "Create", "Ingredient", null, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Create ingredient", "Create", "Ingredient", null, new { @class = "btn" })
                     </div>
                 </div>
             }

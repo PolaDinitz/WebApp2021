@@ -22,7 +22,7 @@
 
     .thead-dark {
         color: #fff;
-        background-color: #343a40;
+        background-color: #00ADB5;
         border-color: #454d55;
     }
 
@@ -39,6 +39,12 @@
     #search {
         margin-top: 5px;
         margin-bottom: 10px;
+    }
+
+    .btn {
+        background-color: #393E46;
+        color: #5F9AC2;
+        border-color: #AAD8D3;
     }
 </style>
 
@@ -87,7 +93,7 @@
     <div class="col-md-2">
         <div class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle wrapper-dropdown">Ingredients<b class="caret"></b></a>
-            <ul class="dropdown-menu" style="background-color:#1d1b1b;overflow-y:scroll;height:10em;">
+            <ul class="dropdown-menu" style="background-color:#00ADB5;overflow-y:scroll;height:10em;">
                 @{
                     foreach (var ingredient in ViewData["Ingredients"] as List<Ingredient>)
                     {
@@ -119,7 +125,7 @@
             }
         </select>
     </div>
-    <div class="col-sm-1"><button id="search" class="btn btn-success">Search</button></div>
+    <div class="col-sm-1"><button id="search" class="btn">Search</button></div>
 </div>
 <br />
 <table class="table table-bordered">
@@ -176,13 +182,13 @@
                 @EnumExtensions.GetDescription((KosherType)(item.KosherType))
             </td>
             <td>
-                <a class="btn btn-primary" href="/Recipe/Details?id=@item.Id">Details</a>
+                <a class="btn" href="/Recipe/Details?id=@item.Id">Details</a>
                 @{ 
                     if (UserController.IsLoggedIn(Context.Session) && 
                         (UserController.GetLoggedInUser(Context.Session).Id == item.User.Id ||
                         UserController.IsManager(Context.Session)))
                     {
-                        <a class="btn btn-success" href="/Recipe/Edit?id=@item.Id">Edit</a>
+                        <a class="btn" href="/Recipe/Edit?id=@item.Id">Edit</a>
                         <partial name="_Delete" model="item" />
                     }
                 }

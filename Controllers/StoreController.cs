@@ -176,7 +176,7 @@ namespace WebApp2021.Controllers
 
         // POST: Store/Delete/:id
         [HttpPost]
-        public async Task<JsonResult> Delete([FromForm] int? id)
+        public async Task<JsonResult> Delete([FromForm]int? id)
         {
             if (id == null)
                 return Json(string.Format("/Error/?code={0}", (int)HttpStatusCode.BadRequest));

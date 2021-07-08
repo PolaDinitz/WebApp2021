@@ -51,7 +51,7 @@ namespace WebApp2021.DAL
                 new Ingredient{Id=3, Name="Tomato", Carbs=5,Protein=3,Fat=1,KosherType=KosherType.Parve},
                 new Ingredient{Id=4, Name="Chicken", Carbs=6,Protein=20,Fat=2,KosherType=KosherType.Meat},
                 new Ingredient{Id=5, Name="Onion", Carbs=10,Protein=4,Fat=6,KosherType=KosherType.Parve},
-                new Ingredient{Id=6, Name="Mayo", Carbs=20,Protein=2,Fat=30,KosherType=KosherType.Parve},
+                new Ingredient{Id=6, Name="Mayo", Carbs=20,Protein=10,Fat=30,KosherType=KosherType.Parve},
                 new Ingredient{Id=7, Name="Beef", Carbs=4,Protein=25,Fat=20,KosherType=KosherType.Meat},
                 new Ingredient{Id=8, Name="Milk", Carbs=2,Protein=3,Fat=1,KosherType=KosherType.Dairy},
                 new Ingredient{Id=9, Name="Bread", Carbs=40,Protein=1,Fat=2,KosherType=KosherType.Parve},
@@ -59,8 +59,6 @@ namespace WebApp2021.DAL
                 new Ingredient{Id=11, Name="Bacon", Carbs=4,Protein=25,Fat=20,KosherType=KosherType.Not_Kosher},
                 new Ingredient{Id=12, Name="Parmesan", Carbs=4,Protein=12,Fat=20,KosherType=KosherType.Dairy},
                 new Ingredient{Id=13, Name="Croutons", Carbs=20,Protein=1,Fat=5,KosherType=KosherType.Parve},
-                new Ingredient{Id=14, Name="Lemon", Carbs=5,Protein=0,Fat=1,KosherType=KosherType.Parve},
-                new Ingredient{Id=15, Name="Flour", Carbs=20,Protein=2,Fat=1,KosherType=KosherType.Parve},
             };
 
             modelBuilder.Entity<Ingredient>().HasData(ingredients);
@@ -106,7 +104,7 @@ namespace WebApp2021.DAL
             modelBuilder.SeedRelation<RecipeIngredient>(3, new int[] { 1, 8, 11, });
             modelBuilder.SeedRelation<RecipeIngredient>(4, new int[] { 3, 4, 5, 6, 10, });
             modelBuilder.SeedRelation<RecipeIngredient>(5, new int[] { 4, });
-            modelBuilder.SeedRelation<RecipeIngredient>(6, new int[] { 4, 1, 15, });
+            modelBuilder.SeedRelation<RecipeIngredient>(6, new int[] { 4, 1, 12, });
 
             foreach (var recipe in recipes)
             {
@@ -128,10 +126,10 @@ namespace WebApp2021.DAL
 
             var stores = new List<Store>
             {
-                new Store{Id=1, Name = "Shufersal", Street = "Bialik 76", City = "Ramat Gan",},
+                new Store{Id=1, Name = "Hazi Hinnam", Street = "Rishon LeTsiyon 1", City = "Petah Tikva",},
                 new Store{Id=2, Name = "Mega Sport", Street = "Weizmann 301", City = "Kefar Sava",},
                 new Store{Id=3, Name = "Tiv Taam", Street = "Ben Gurion Blvd 56", City = "Herzliya",},
-                new Store{Id=4, Name = "Keshet Teamim", Street = "Victor Vantura 222", City = "Be'er Sheva",},
+                new Store{Id=4, Name = "Mega", Street = "Ahuza Street 69", City = "Raanana",},
             };
 
             modelBuilder.Entity<Store>().HasData(stores);
@@ -143,7 +141,7 @@ namespace WebApp2021.DAL
         }
 
         private static void SeedRelation<Relation>(this ModelBuilder modelBuilder, int primaryId, int[] relatedIds)
-            where Relation : class
+            where Relation: class
         {
             foreach (int relatedId in relatedIds)
             {

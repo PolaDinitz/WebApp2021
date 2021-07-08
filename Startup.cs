@@ -32,7 +32,8 @@ namespace WebApp2021
             services.AddControllersWithViews();
 
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+                options.UseLazyLoadingProxies()
+                        .UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
 
             services.AddDistributedMemoryCache();
 
@@ -44,7 +45,7 @@ namespace WebApp2021
             });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            
             services.AddScoped<UserController>();
         }
 

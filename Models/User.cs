@@ -8,7 +8,8 @@ namespace WebApp2021.Models
 {
     public class User
     {
-        public User(){
+        public User()
+        {
             Events = new List<RecipeUserEvent>();
             Recipes = new List<Recipe>();
         }
@@ -16,7 +17,7 @@ namespace WebApp2021.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-                [Required]
+        [Required]
         [DisplayName("Username")]
         public string UserName { get; set; }
 
@@ -56,6 +57,5 @@ namespace WebApp2021.Models
 
         [JsonIgnore]
         public virtual List<Recipe> Recipes { get; set; }
-
     }
 }

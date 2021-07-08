@@ -1,4 +1,4 @@
-﻿@using WebApp2021.Models
+﻿@model WebApp2021.Models.Store
 
 @{
     Layout="_Layout";
@@ -75,7 +75,7 @@
             <div class="col-md-10">
                 <div class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle wrapper-dropdown">Select tags<b class="caret"></b></a>
-                    <ul class="dropdown-menu" style="background-color:#1d1b1b;overflow-y:scroll;height:10em;">
+                    <ul class="dropdown-menu" style="background-color:#00ADB5;overflow-y:scroll;height:10em;">
                         @{
                             var checkedTags = ViewData["checkedTags"] as HashSet<int>;
                             foreach (var tag in ViewData["Tags"] as List<Tag>)
@@ -99,7 +99,7 @@
 
         <div class="container">
             <div class="form-group">
-                <input type="submit" value="@ViewData["SubmitLabel"]" class="btn btn-primary" />
+                <input type="submit" value="@ViewData["SubmitLabel"]" class="btn" />
             </div>
         </div>
     </div>

@@ -1,5 +1,4 @@
-@using WebApp2021.Utils;
-@using WebApp2021.Models;
+﻿@using WebApp2021.Utils;
 
 @model List<Tuple<Recipe, float>>
 
@@ -33,7 +32,7 @@
                 <b class="info">@item.Item2</b>
                 <b class="label label-default">@item.Item1.KosherType.GetDescription()</b>
             </p>
-            <p><a>@Html.ActionLink("View Recipe", "Details", "Recipe", new { id = item.Item1.Id }, new { @class = "btn btn-default btn-sm" })</a></p>
+            <p><a>@Html.ActionLink("View Recipe", "Details", "Recipe", new { id = item.Item1.Id }, new { @class = "btn btn-sm" })</a></p>
         </div>
     }
 </div>

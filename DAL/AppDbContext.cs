@@ -1,6 +1,5 @@
 ﻿using WebApp2021.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using System.Linq;
 
 namespace WebApp2021.DAL
@@ -8,7 +7,7 @@ namespace WebApp2021.DAL
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-
+       
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<User> Users { get; set; }
@@ -22,7 +21,7 @@ namespace WebApp2021.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RecipeIngredient>().HasKey(ri => new { ri.RecipeId, ri.IngredientId });
-
+            
             modelBuilder.Entity<RecipeIngredient>()
                 .HasOne<Recipe>(ri => ri.Recipe)
                 .WithMany(r => r.Ingredients)
@@ -59,7 +58,8 @@ namespace WebApp2021.DAL
                 .WithMany(t => t.Stores)
                 .HasForeignKey(st => st.TagId);
 
-            foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
+
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 entityType.SetTableName(entityType.DisplayName());
                 entityType.GetForeignKeys()

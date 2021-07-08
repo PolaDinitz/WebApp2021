@@ -1,41 +1,40 @@
-﻿@using WebApp2021.Models;
+@using WebApp2021.Models;
 @using WebApp2021.Utils;
 @using WebApp2021.Controllers;
 @using Newtonsoft.Json;
 
 @model IEnumerable<Store>
 
-    @{
-        Layout="_Layout";
-        ViewBag.Title = "Store";
+@{
+    ViewBag.Title = "Store";
+}
+
+<style>
+
+    input[type=text] {
+        color: black;
     }
 
-    <style>
+    select {
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
 
-        input[type=text] {
-            color: black;
-        }
+    .data-row:hover {
+        transition: background-color 0.5s;
+        background-color: lightgray;
+        cursor: pointer;
+    }
 
-        select {
-            margin-bottom: 10px;
-            margin-top: 5px;
-        }
+    .thead-dark {
+        color: #fff;
+        background-color: #343a40;
+        border-color: #454d55;
+    }
+</style>
 
-        .data-row:hover {
-            transition: background-color 0.5s;
-            background-color: lightgray;
-            cursor: pointer;
-        }
-
-        .thead-dark {
-            color: #fff;
-            background-color: #343a40;
-            border-color: #454d55;
-        }
-    </style>
-
-    @section scripts
-    {
+@section scripts
+{
 
     <script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AjT4rQugWxVeKVPuHJLOgCK0QUqhra_qFFvSm_bHSUF3bGnQo3xu-8750mFciMKY' async defer></script>
 
@@ -66,8 +65,8 @@
                 const map = new Microsoft.Maps.Map('#myMap');
                 const stores = @Html.Raw(JsonConvert.SerializeObject(Model.ToArray()));
                 const promises = [];
-                const center = [0, 0];
-                const key = 'AjT4rQugWxVeKVPuHJLOgCK0QUqhra_qFFvSm_bHSUF3bGnQo3xu-8750mFciMKY';
+                const center = [0,0];
+                const key = 'AjT4rQugWxVeKVPuHJLOgCK0QUqhra_qFFvSm_bHSUF3bGnQo3xu-8750mFciMKY'; 
                 for (const i in stores) {
                     const url = `https://dev.virtualearth.net/REST/v1/Locations?key=${key}&q=${stores[i].Location}`;
                     promises.push(new Promise(async (resolve, reject) => {
@@ -105,26 +104,24 @@
         }
     </script>
 
-    }
+}
 
-    <div class="row" style="margin-top: 12px;margin-bottom:8px;">
-        <div class="col-md-2"><h3 style="margin:0px;">filters:</h3></div>
+<div class="row" style="margin-top: 12px;margin-bottom:8px;">
+    <div class="col-md-2"><h3 style="margin:0px;">filters:</h3></div>
 
-        <div class="col-md-2">
-            <input placeholder="Name:" type="text" id="name" />
-        </div>
-        <div class="col-md-2">
-            <input placeholder="City:" type="text" id="city" />
-        </div>
-        <div class="col-md-2" style="margin-top: 8px;">
-            <div class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle wrapper-dropdown">Tags<b class="caret"></b></a>
-                <ul class="dropdown-menu" style="background-color:#1d1b1b;overflow-y:scroll;height:10em;">
-                    @{
-                    foreach (var tag in ViewData["Tags"] as List
-                    <Tag>
-                        )
-                        {
+    <div class="col-md-2">
+        <input placeholder="Name:" type="text" id="name" />
+    </div>
+    <div class="col-md-2">
+        <input placeholder="City:" type="text" id="city" />
+    </div>
+    <div class="col-md-2" style="margin-top: 8px;">
+        <div class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle wrapper-dropdown">Tags<b class="caret"></b></a>
+            <ul class="dropdown-menu" style="background-color:#00ADB5;overflow-y:scroll;height:10em;">
+                @{
+                    foreach (var tag in ViewData["Tags"] as List<Tag>)
+                    {
                         <li class="tag-list">
                             <span class="checkbox">
                                 <label>
@@ -133,51 +130,51 @@
                                 </label>
                             </span>
                         </li>
-                        }
-                        }
-                </ul>
-            </div>
+                    }
+                }
+            </ul>
         </div>
-        <div class="col-md-2">
-            <button id="search" class="btn btn-success">Search</button>
-        </div>
+    </div>
+    <div class="col-md-2">
+        <button id="search" class="btn btn-success">Search</button>
+    </div>
 
-        @{
+    @{
         if (UserController.IsManager(Context.Session))
         {
-        <div class="col-md-2">
-            <div style="float: right">
-                @Html.ActionLink("Add Store", "Create", "Store", null, new { @class = "btn btn-primary" })
+            <div class="col-md-2">
+                <div style="float: right">
+                    @Html.ActionLink("Add Store", "Create", "Store", null, new { @class = "btn" })
+                </div>
             </div>
-        </div>
         }
-        }
-    </div>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Location)
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
 
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Tags)
-                    </th>
-                    @{
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tags)
+                </th>
+                @{
                     if (UserController.IsManager(Context.Session))
                     {
-                    <th></th>
-                    <th></th>
+                        <th></th>
+                        <th></th>
                     }
-                    }
-                </tr>
-            </thead>
-            @foreach (var item in Model)
-            {
+                }
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(model => item.Name)
@@ -187,26 +184,26 @@
                 </td>
                 <td>
                     @{
-                    var stringTags = string.Join(", ", item.Tags.Select(t => t.Tag.Type));
+                        var stringTags = string.Join(", ", item.Tags.Select(t => t.Tag.Type));
                     }
                     @Html.DisplayFor(model => stringTags)
                 </td>
                 @{
-                if (UserController.IsManager(Context.Session))
-                {
-                <td>
-                    <a class="btn btn-success" href="/Store/Edit?id=@item.Id">Edit</a>
-                </td>
-                <td>
-                    <partial name="_Delete" model="item">
-                </td>
-                }
+                    if (UserController.IsManager(Context.Session))
+                    {
+                        <td>
+                            <a class="btn btn-success" href="/Store/Edit?id=@item.Id">Edit</a>
+                        </td>
+                        <td>
+                            <partial name="_Delete" model="item">
+                        </td>
+                    }
                 }
 
             </tr>
-            }
-        </table>
-    </div>
-    <div class="row">
-        <div id="myMap" class="col-md-10 col-md-offset-1" style='position:relative;height:400px;'></div>
-    </div>
+        }
+    </table>
+</div>
+<div class="row">
+    <div id="myMap" class="col-md-10 col-md-offset-1" style='position:relative;height:400px;'></div>
+</div>

@@ -76,13 +76,9 @@
                             @{
                                 object attr;
                                 if (Model.Id == Constants.SystemUserID)
-                                {
                                     attr = new { disabled = "disabled" };
-                                }
                                 else
-                                {
                                     attr = new { };
-                                }
                             }
                             @Html.CheckBoxFor(model => model.IsManager, attr)
                             @Html.ValidationMessageFor(model => model.IsManager, "", new { @class = "text-danger" })
